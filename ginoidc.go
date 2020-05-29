@@ -72,7 +72,7 @@ func logoutHandler(i InitParams) func(c *gin.Context) {
 		logoutUrl.RawQuery = (url.Values{"redirect_uri": []string{i.PostLogoutUrl.String()}}).Encode()
 		logoutUrl.Path += "/"
 		fmt.Println("last char: " + logoutUrl.Path[len(logoutUrl.Path)-1:])
-		fmt.Println("last char equal to / : "+logoutUrl.Path[len(logoutUrl.Path)-1:] == "/")
+		fmt.Println("last char equal to / : " + (logoutUrl.Path[len(logoutUrl.Path)-1:] == "/"))
 		logoutUrl.Path += "/protocol/openid-connect/logout"
 		c.Redirect(http.StatusFound, logoutUrl.String())
 	}
