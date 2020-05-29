@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"log"
 	"math/rand"
 	"net/http"
@@ -69,6 +70,8 @@ func logoutHandler(i InitParams) func(c *gin.Context) {
 		serverSession.Save()
 		logoutUrl := i.Issuer
 		logoutUrl.RawQuery = (url.Values{"redirect_uri": []string{i.PostLogoutUrl.String()}}).Encode()
+		fmt.Println("last char: " + logoutUrl.Path[len(logoutUrl.Path)-1:])
+		fmt.Println("last char equal to / : "+logoutUrl.Path[len(logoutUrl.Path)-1:] == "/")
 		logoutUrl.Path += "/protocol/openid-connect/logout"
 		c.Redirect(http.StatusFound, logoutUrl.String())
 	}
