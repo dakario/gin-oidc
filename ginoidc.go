@@ -154,6 +154,7 @@ func protectMiddleware(config *oauth2.Config) func(c *gin.Context) {
 			log.Fatal("failed save sessions. error: " + err.Error()) // todo handle more gracefully
 		}
 		c.Redirect(http.StatusFound, config.AuthCodeURL(state)) //redirect to authorization server
+		c.Abort()
 	}
 
 }
